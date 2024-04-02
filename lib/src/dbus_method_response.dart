@@ -228,7 +228,7 @@ class DBusMethodErrorResponse extends DBusMethodResponse {
 
 /// A successful response to [DBusObject.getProperty].
 class DBusGetPropertyResponse extends DBusMethodSuccessResponse {
-  DBusGetPropertyResponse(DBusValue value) : super([DBusVariant(value)]);
+  DBusGetPropertyResponse(DBusValue value) : super([value]);
 
   @override
   String toString() => '$runtimeType($values[0])';
