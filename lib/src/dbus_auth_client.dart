@@ -130,6 +130,8 @@ class DBusAuthClient {
       authId = getuid().toString();
     } else if (Platform.isWindows) {
       authId = getsid();
+    } else if (Platform.isMacOS) {
+      authId = getuid_macos().toString();
     } else {
       throw 'Authentication not supported on ${Platform.operatingSystem}';
     }
