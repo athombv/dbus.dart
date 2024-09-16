@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dbus_uuid.dart';
 import 'getsid.dart';
 import 'getuid.dart';
+import 'getuid_macos.dart';
 
 /// A client for D-Bus authentication.
 class DBusAuthClient {
@@ -126,7 +127,10 @@ class DBusAuthClient {
   /// Start authentication using the EXTERNAL mechanism.
   void _authenticateExternal() {
     String authId;
-    if (Platform.isLinux) {
+    // Check if DBUS_AUTH_ID is set in Environment.
+    if (Platform.environment.containsKey('DBUS_AUTH_ID')) {
+      authId = Platform.environment['DBUS_AUTH_ID']!;
+    } else if (Platform.isLinux) {
       authId = getuid().toString();
     } else if (Platform.isWindows) {
       authId = getsid();
